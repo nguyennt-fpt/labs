@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 640" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#37474f"/>
+    </marker>
+    <marker id="ad" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8e24aa"/>
+    </marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c62828"/>
+    </marker>
+    <style>
+      .box{stroke-width:1.5;rx:8}
+      .t{font-weight:600;fill:#263238}
+      .s{font-size:12px;fill:#455a64}
+      .lbl{font-size:12px;fill:#37474f}
+      .flow{stroke:#37474f;stroke-width:2;fill:none;marker-end:url(#a)}
+      .data{stroke:#8e24aa;stroke-width:1.8;fill:none;stroke-dasharray:6 4;marker-end:url(#ad)}
+      .blk{stroke:#c62828;stroke-width:2;fill:none;marker-end:url(#ar)}
+    </style>
+  </defs>
+
+  <rect width="1100" height="640" fill="#ffffff"/>
+  <text x="550" y="30" text-anchor="middle" font-size="20" font-weight="700" fill="#283e5b">agent-ids — system architecture</text>
+
+  <!-- client -->
+  <rect x="20" y="120" width="130" height="70" fill="#ffebee" stroke="#c62828" class="box"/>
+  <text x="85" y="150" text-anchor="middle" class="t">Client /</text>
+  <text x="85" y="170" text-anchor="middle" class="t">Attacker</text>
+
+  <!-- EC2 boundary -->
+  <rect x="180" y="50" width="900" height="570" fill="#f5f8fc" stroke="#283e5b" stroke-dasharray="8 5" stroke-width="1.5" rx="12"/>
+  <text x="200" y="74" font-weight="700" fill="#283e5b">AWS EC2 g4dn.xlarge (Tesla T4) — Docker Compose</text>
+
+  <!-- web path -->
+  <rect x="210" y="115" width="140" height="80" fill="#e3f2fd" stroke="#1565c0" class="box"/>
+  <text x="280" y="145" text-anchor="middle" class="t">Nginx :80</text>
+  <text x="280" y="164" text-anchor="middle" class="s">reverse proxy</text>
+  <text x="280" y="180" text-anchor="middle" class="s">JSON access log</text>
+
+  <rect x="400" y="115" width="150" height="80" fill="#fff3e0" stroke="#ef6c00" class="box"/>
+  <text x="475" y="145" text-anchor="middle" class="t">WAF</text>
+  <text x="475" y="164" text-anchor="middle" class="s">OWASP CRS, ModSecurity</text>
+  <text x="475" y="180" text-anchor="middle" class="s">DetectionOnly (logs only)</text>
+
+  <rect x="600" y="115" width="130" height="80" fill="#e8f5e9" stroke="#2e7d32" class="box"/>
+  <text x="665" y="145" text-anchor="middle" class="t">DVWA</text>
+  <text x="665" y="164" text-anchor="middle" class="s">vulnerable PHP app</text>
+  <text x="665" y="180" text-anchor="middle" class="s">(the target)</text>
+
+  <rect x="780" y="115" width="110" height="80" fill="#e8f5e9" stroke="#2e7d32" class="box"/>
+  <text x="835" y="152" text-anchor="middle" class="t">MySQL</text>
+  <text x="835" y="171" text-anchor="middle" class="s">DVWA data</text>
+
+  <path d="M150,155 L208,155" class="flow"/>
+  <text x="179" y="146" text-anchor="middle" class="lbl">HTTP</text>
+  <path d="M350,155 L398,155" class="flow"/>
+  <path d="M550,155 L598,155" class="flow"/>
+  <path d="M730,155 L778,155" class="flow"/>
+
+  <!-- suricata -->
+  <rect x="210" y="255" width="190" height="80" fill="#fce4ec" stroke="#ad1457" class="box"/>
+  <text x="305" y="284" text-anchor="middle" class="t">Suricata IDS</text>
+  <text x="305" y="303" text-anchor="middle" class="s">AF-Packet, host network</text>
+  <text x="305" y="319" text-anchor="middle" class="s">ET Open + custom rules</text>
+  <path d="M100,190 C100,300 150,300 208,297" class="flow" stroke-dasharray="3 4"/>
+  <text x="112" y="250" class="lbl">sniffs every</text>
+  <text x="112" y="266" class="lbl">packet (copy)</text>
+
+  <!-- logs -->
+  <rect x="460" y="255" width="150" height="40" fill="#ede7f6" stroke="#5e35b1" class="box"/>
+  <text x="535" y="280" text-anchor="middle" class="t">eve.json</text>
+  <rect x="460" y="305" width="150" height="40" fill="#ede7f6" stroke="#5e35b1" class="box"/>
+  <text x="535" y="330" text-anchor="middle" class="t">access.json.log</text>
+  <rect x="460" y="355" width="150" height="40" fill="#ede7f6" stroke="#5e35b1" class="box"/>
+  <text x="535" y="380" text-anchor="middle" class="t">WAF audit.json</text>
+
+  <path d="M400,280 L458,276" class="data"/>
+  <path d="M280,195 C280,240 420,320 458,325" class="data"/>
+  <path d="M475,195 C475,230 440,330 458,372" class="data"/>
+
+  <!-- agent -->
+  <rect x="670" y="250" width="230" height="160" fill="#e0f7fa" stroke="#00838f" class="box"/>
+  <text x="785" y="278" text-anchor="middle" class="t">AI Agent (LangGraph)</text>
+  <text x="785" y="300" text-anchor="middle" class="s">polls the logs every 5 s</text>
+  <text x="785" y="318" text-anchor="middle" class="s">joins alert + web line</text>
+  <text x="785" y="336" text-anchor="middle" class="s">triage → investigate →</text>
+  <text x="785" y="354" text-anchor="middle" class="s">risk_gate → act</text>
+  <text x="785" y="376" text-anchor="middle" class="s">or RESPONSE_MODE =</text>
+  <text x="785" y="393" text-anchor="middle" class="s">rule_based / naive / waf</text>
+
+  <path d="M610,276 L668,290" class="data"/>
+  <path d="M610,325 L668,325" class="data"/>
+  <path d="M610,375 L668,360" class="data"/>
+  <text x="640" y="248" text-anchor="middle" class="lbl">read</text>
+
+  <!-- ollama -->
+  <rect x="950" y="260" width="110" height="90" fill="#fffde7" stroke="#f9a825" class="box"/>
+  <text x="1005" y="290" text-anchor="middle" class="t">Ollama</text>
+  <text x="1005" y="309" text-anchor="middle" class="s">Qwen2.5-14B</text>
+  <text x="1005" y="325" text-anchor="middle" class="s">on the T4 GPU</text>
+  <text x="1005" y="341" text-anchor="middle" class="s">~4.4 s / request</text>
+  <path d="M900,300 L948,300" class="flow"/>
+  <path d="M948,320 L902,320" class="flow"/>
+
+  <!-- sqlite + dashboard -->
+  <rect x="670" y="460" width="150" height="70" fill="#eceff1" stroke="#546e7a" class="box"/>
+  <text x="745" y="490" text-anchor="middle" class="t">SQLite</text>
+  <text x="745" y="509" text-anchor="middle" class="s">decisions + approvals</text>
+  <path d="M745,410 L745,458" class="flow"/>
+
+  <rect x="880" y="460" width="180" height="70" fill="#e3f2fd" stroke="#1565c0" class="box"/>
+  <text x="970" y="488" text-anchor="middle" class="t">Dashboard :5000</text>
+  <text x="970" y="507" text-anchor="middle" class="s">Flask, read-only +</text>
+  <text x="970" y="522" text-anchor="middle" class="s">token-gated approvals</text>
+  <path d="M878,495 L822,495" class="flow"/>
+  <text x="850" y="485" text-anchor="middle" class="lbl">read</text>
+
+  <!-- firewall -->
+  <rect x="210" y="460" width="250" height="90" fill="#ffebee" stroke="#c62828" class="box"/>
+  <text x="335" y="490" text-anchor="middle" class="t">Host firewall</text>
+  <text x="335" y="510" text-anchor="middle" class="s">ipset agent-block (1 h timeout)</text>
+  <text x="335" y="528" text-anchor="middle" class="s">+ one DOCKER-USER DROP rule</text>
+  <path d="M700,410 C640,470 520,505 462,505" class="blk"/>
+  <text x="560" y="462" text-anchor="middle" class="lbl" fill="#c62828">block IP</text>
+  <path d="M210,505 C120,505 85,350 85,192" class="blk"/>
+  <text x="66" y="430" class="lbl" fill="#c62828">drops</text>
+  <text x="66" y="446" class="lbl" fill="#c62828">traffic</text>
+
+  <!-- legend -->
+  <g transform="translate(200,585)">
+    <path d="M0,0 L40,0" class="flow"/><text x="48" y="4" class="lbl">request / call</text>
+    <path d="M170,0 L210,0" class="data"/><text x="218" y="4" class="lbl">log written / read</text>
+    <path d="M370,0 L410,0" class="blk"/><text x="418" y="4" class="lbl">response action (block)</text>
+  </g>
+</svg>

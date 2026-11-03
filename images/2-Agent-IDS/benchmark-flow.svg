@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 470" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#37474f"/>
+    </marker>
+    <style>
+      .t{font-weight:600;fill:#263238}
+      .s{font-size:12px;fill:#455a64}
+      .lbl{font-size:12px;fill:#37474f;font-style:italic}
+      .flow{stroke:#37474f;stroke-width:2;fill:none;marker-end:url(#a)}
+    </style>
+  </defs>
+  <rect width="1100" height="470" fill="#ffffff"/>
+  <text x="550" y="30" text-anchor="middle" font-size="20" font-weight="700" fill="#283e5b">How the A/B benchmark measures each mode</text>
+
+  <rect x="20" y="80" width="190" height="150" rx="8" fill="#ede7f6" stroke="#5e35b1" stroke-width="1.5"/>
+  <text x="115" y="106" text-anchor="middle" class="t">corpus.jsonl</text>
+  <text x="115" y="128" text-anchor="middle" class="s">260 labeled requests</text>
+  <text x="115" y="146" text-anchor="middle" class="s">public payload sources</text>
+  <text x="115" y="168" text-anchor="middle" class="s">dev 52 — tune here</text>
+  <text x="115" y="186" text-anchor="middle" class="s">test 147 — final numbers</text>
+  <text x="115" y="204" text-anchor="middle" class="s">held_out 61 — new attacks</text>
+  <text x="115" y="222" text-anchor="middle" class="s">eid = content hash</text>
+
+  <rect x="260" y="80" width="190" height="150" rx="8" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="355" y="106" text-anchor="middle" class="t">replay.py</text>
+  <text x="355" y="128" text-anchor="middle" class="s">sends each request with</text>
+  <text x="355" y="146" text-anchor="middle" class="s">its eid in the query string</text>
+  <text x="355" y="168" text-anchor="middle" class="s">actor IP via X-Forwarded-For</text>
+  <text x="355" y="186" text-anchor="middle" class="s">pacing: 0.5 s (rules/WAF)</text>
+  <text x="355" y="204" text-anchor="middle" class="s">6 s (LLM modes)</text>
+  <path d="M210,155 L258,155" class="flow"/>
+
+  <rect x="500" y="80" width="190" height="150" rx="8" fill="#e0f7fa" stroke="#00838f" stroke-width="1.5"/>
+  <text x="595" y="106" text-anchor="middle" class="t">The running stack</text>
+  <text x="595" y="128" text-anchor="middle" class="s">agent recreated per run,</text>
+  <text x="595" y="146" text-anchor="middle" class="s">RESPONSE_MODE = one of</text>
+  <text x="595" y="164" text-anchor="middle" class="s">rule_based · naive · waf</text>
+  <text x="595" y="182" text-anchor="middle" class="s">agent · agent_ids</text>
+  <text x="595" y="204" text-anchor="middle" class="s">BLOCK_ENABLED=false</text>
+  <text x="595" y="222" text-anchor="middle" class="s">(records, never blocks)</text>
+  <path d="M450,155 L498,155" class="flow"/>
+
+  <rect x="740" y="80" width="160" height="150" rx="8" fill="#eceff1" stroke="#546e7a" stroke-width="1.5"/>
+  <text x="820" y="106" text-anchor="middle" class="t">score.py</text>
+  <text x="820" y="128" text-anchor="middle" class="s">waits until every eid</text>
+  <text x="820" y="146" text-anchor="middle" class="s">has a decision</text>
+  <text x="820" y="168" text-anchor="middle" class="s">block/warn = attack</text>
+  <text x="820" y="186" text-anchor="middle" class="s">log/none = benign</text>
+  <text x="820" y="208" text-anchor="middle" class="s">P, R, F1, FPR, MTTB</text>
+  <path d="M690,155 L738,155" class="flow"/>
+
+  <rect x="950" y="80" width="130" height="150" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+  <text x="1015" y="106" text-anchor="middle" class="t">Report</text>
+  <text x="1015" y="128" text-anchor="middle" class="s">summary.csv</text>
+  <text x="1015" y="146" text-anchor="middle" class="s">mean ± std</text>
+  <text x="1015" y="168" text-anchor="middle" class="s">ci.csv (paired</text>
+  <text x="1015" y="186" text-anchor="middle" class="s">bootstrap)</text>
+  <text x="1015" y="208" text-anchor="middle" class="s">calibration.csv</text>
+  <path d="M900,155 L948,155" class="flow"/>
+
+  <!-- loop -->
+  <path d="M820,232 C820,300 595,300 595,236" class="flow"/>
+  <text x="708" y="298" text-anchor="middle" class="lbl">repeat: 5 modes × N = 5 runs</text>
+
+  <!-- side experiments -->
+  <rect x="20" y="330" width="1060" height="115" rx="8" fill="#fafafa" stroke="#90a4ae" stroke-dasharray="5 4"/>
+  <text x="40" y="356" class="t">Side experiments (same stack)</text>
+  <text x="40" y="380" class="s">• Prompt injection — test_injection.py runs 25 injection samples × 2 repeats through the real graph, with the two defenses (prompt rules, untrusted-data fence) toggled 2 × 2.</text>
+  <text x="40" y="402" class="s">• Learning curve — learning_curve.py: each epoch first scores the test split, then learns lessons from dev feedback; memory on vs off.</text>
+  <text x="40" y="424" class="s">• Untuned ET Open appendix — the same A/B on the raw ruleset, to show the conclusions do not depend on rule tuning.</text>
+</svg>
