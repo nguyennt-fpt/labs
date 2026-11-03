@@ -3,6 +3,7 @@ title: "ECS Fargate Microservices"
 date: "2025-08-09"
 weight: 1
 chapter: false
+pre: " <b> 1. </b> "
 ---
 
 Dự án này triển khai một **nền tảng triển khai microservices tự động và bảo mật hoàn toàn** trên AWS, sử dụng **ECS Fargate** làm công cụ điều phối container và **Terraform** làm công cụ Infrastructure-as-Code (IaC).

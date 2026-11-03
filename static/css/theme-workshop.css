@@ -226,3 +226,22 @@ div.notices.info p {
   border-top: 30px solid #fd9827;
   background: #fff2db;
 }
+
+/* Top-level projects in the sidebar: one block per project, clearly separated */
+#sidebar ul.topics > li.dd-item {
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+}
+#sidebar ul.topics > li.dd-item:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+#sidebar ul.topics > li.dd-item > a {
+  font-weight: 700;
+  color: #ffb84d;
+}
+#sidebar ul.topics > li.dd-item.active > a {
+  color: #283e5b !important;
+}

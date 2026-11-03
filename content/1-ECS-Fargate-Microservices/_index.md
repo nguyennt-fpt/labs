@@ -3,6 +3,7 @@ title: "ECS Fargate Microservices"
 date: "2025-08-09"
 weight: 1
 chapter: false
+pre: " <b> 1. </b> "
 ---
 
 This project implements a **fully automated and secure microservices deployment platform** on AWS, using **ECS Fargate** as the container orchestration engine and **Terraform** as the Infrastructure-as-Code (IaC) tool.

@@ -26,3 +26,5 @@ chapter: false
 
 1.  [ECS-Fargate-Microservices](1-ECS-Fargate-Microservices/)
 
+2.  [Agent-IDS — Hybrid IDS + AI Agent](/2-agent-ids/) (bản tiếng Anh)
+
